@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Zkilleman_Piwik
+ *
+ * Copyright (C) 2012 Henrik Hedelund (henke.hedelund@gmail.com)
+ *
+ * This file is part of Zkilleman_Piwik.
+ *
+ * Zkilleman_Piwik is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Zkilleman_Piwik is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Zkilleman_Piwik. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category Zkilleman
+ * @package Zkilleman_Piwik
+ * @author Henrik Hedelund <henke.hedelund@gmail.com>
+ * @copyright 2012 Henrik Hedelund (henke.hedelund@gmail.com)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPL
+ * @link https://github.com/henkelund/magento-zkilleman-piwik
+ */
+-->
+<config>
+    <modules>
+        <Zkilleman_Piwik>
+            <version>0.1.0.0</version>
+        </Zkilleman_Piwik>
+    </modules>
+
+    <frontend>
+        <layout>
+            <updates>
+                <piwik>
+                    <file>piwik.xml</file>
+                </piwik>
+            </updates>
+        </layout>
+        <events>
+            <checkout_onepage_controller_success_action>
+                <observers>
+                    <piwik_order_success>
+                        <class>piwik/observer</class>
+                        <method>setPiwikOnOrderSuccessPageView</method>
+                    </piwik_order_success>
+                </observers>
+            </checkout_onepage_controller_success_action>
+            <checkout_multishipping_controller_success_action>
+                <observers>
+                    <piwik_order_success>
+                        <class>piwik/observer</class>
+                        <method>setPiwikOnOrderSuccessPageView</method>
+                    </piwik_order_success>
+                </observers>
+            </checkout_multishipping_controller_success_action>
+        </events>
+    </frontend>
+    
+    <global>
+        <blocks>
+            <piwik>
+                <class>Zkilleman_Piwik_Block</class>
+            </piwik>
+        </blocks>
+        <helpers>
+            <piwik>
+                <class>Zkilleman_Piwik_Helper</class>
+            </piwik>
+        </helpers>
+        <models>
+            <piwik>
+                <class>Zkilleman_Piwik_Model</class>
+            </piwik>
+        </models>
+    </global>
+
+    <default>
+        <piwik>
+            <general>
+                <enabled>0</enabled>
+                <site_id>1</site_id>
+            </general>
+        </piwik>
+    </default>
+</config>
