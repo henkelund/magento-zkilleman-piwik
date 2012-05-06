@@ -42,7 +42,7 @@ class Zkilleman_Piwik_Model_Observer
             return;
         }
         $block = Mage::app()->getFrontController()
-                        ->getAction()->getLayout()->getBlock('piwik.analytics');
+                        ->getAction()->getLayout()->getBlock('piwik.tracker');
         if ($block) {
             $block->setOrderIds($orderIds);
         }

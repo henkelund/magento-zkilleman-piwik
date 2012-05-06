@@ -32,7 +32,7 @@
 
     <default>
         <reference name="after_body_start">
-            <block type="piwik/tracker" name="piwik.analytics" as="piwikAnalytics" />
+            <block type="piwik/tracker" name="piwik.tracker" as="piwikTracker" />
         </reference>
     </default>
 </layout>

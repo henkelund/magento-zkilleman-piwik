@@ -94,33 +94,33 @@ class Zkilleman_Piwik_Block_Tracker extends Mage_Core_Block_Template
             return $result;
         }
         $collection = Mage::getResourceModel('sales/order_collection')
-                        ->addFieldToFilter('entity_id', array('in' => $orderIds));
+                        ->addFieldToFilter(
+                                'entity_id', array('in' => $orderIds));
         foreach ($collection as $order) {
-            $resultOrder = new Varien_Object();
-            $resultOrderItems = new Varien_Data_Collection();
-            if ($order->getIsVirtual()) {
-                $address = $order->getBillingAddress();
-            } else {
-                $address = $order->getShippingAddress();
-            }
-            $resultOrder
-                    ->setId($order->getIncrementId())
-                    ->setGrandTotal($order->getBaseGrandTotal())
-                    ->setSubTotal($order->getBaseSubtotalInclTax())
-                    ->setTax($order->getBaseTaxAmount())
-                    ->setShipping($order->getBaseShippingAmount())
-                    ->setDiscount($order->getBaseDiscountAmount());
+            // Gather order items data
+            $items = new Varien_Data_Collection();
             foreach ($order->getAllVisibleItems() as $item) {
-                $resultOrderItem = new Varien_Object();
-                $resultOrderItem
-                        ->setSku($this->jsQuoteEscape($item->getSku()))
-                        ->setName($this->jsQuoteEscape($item->getName()))
-                        ->setPrice($item->getBasePrice())
-                        ->setQty($item->getQtyOrdered());
-                $resultOrderItems->addItem($resultOrderItem);
+                $items->addItem(
+                        new Varien_Object(array(
+                            'sku'   => $this->jsQuoteEscape($item->getSku()),
+                            'name'  => $this->jsQuoteEscape($item->getName()),
+                            'price' => $item->getBasePrice(),
+                            'qty'   => $item->getQtyOrdered()
+                        ))
+                );
             }
-            $resultOrder->setItems($resultOrderItems);
-            $result->addItem($resultOrder);
+            // Prepare order tracking data
+            $result->addItem(
+                    new Varien_Object(array(
+                            'id'          => $order->getIncrementId(),
+                            'grand_total' => $order->getBaseGrandTotal(),
+                            'sub_total'   => $order->getBaseSubtotalInclTax(),
+                            'tax'         => $order->getBaseTaxAmount(),
+                            'shipping'    => $order->getBaseShippingAmount(),
+                            'discount'    => $order->getBaseDiscountAmount(),
+                            'items'       => $items
+                    ))
+            );
         }
         return $result;
     }
