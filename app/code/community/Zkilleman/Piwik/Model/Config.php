@@ -29,9 +29,17 @@
 
 class Zkilleman_Piwik_Model_Config
 {
+    // General
     const XML_PATH_TRACKING_ENABLED = 'piwik/general/enabled';
     const XML_PATH_PIWIK_BASE_URL   = 'piwik/general/base_url';
     const XML_PATH_PIWIK_SITE_ID    = 'piwik/general/site_id';
+    
+    // Link tracking
+    const XML_PATH_LINK_TRACKING_ENABLED  = 'piwik/link_tracking/enabled';
+    const XML_PATH_LINK_TRACKING_TIMER    = 'piwik/link_tracking/timer';
+    const XML_PATH_LINK_TRACKING_IGNORE   = 'piwik/link_tracking/ignore_classes';
+    const XML_PATH_LINK_TRACKING_OUTLINK  = 'piwik/link_tracking/outlink_classes';
+    const XML_PATH_LINK_TRACKING_DOWNLOAD = 'piwik/link_tracking/download_classes';
     
     /**
      * Whether tracking is enabled
@@ -61,5 +69,68 @@ class Zkilleman_Piwik_Model_Config
     public function getPiwikSiteId()
     {
         return (int) Mage::getStoreConfig(self::XML_PATH_PIWIK_SITE_ID);
+    }
+    
+    /**
+     * Whether link tracking is enabled
+     *
+     * @return bool 
+     */
+    public function isLinkTrackingEnabled()
+    {
+        return (bool) Mage::getStoreConfig(self::XML_PATH_LINK_TRACKING_ENABLED);
+    }
+    
+    /**
+     * Get link tracking delay
+     *
+     * @return string 
+     */
+    public function getLinkTrackingTimer()
+    {
+        return (int) Mage::getStoreConfig(self::XML_PATH_LINK_TRACKING_TIMER);
+    }
+    
+    /**
+     * Get link css classes to be ignored
+     *
+     * @return array 
+     */
+    public function getLinkTrackingIgnoreClasses()
+    {
+        return $this->_cssClassStringToArray(
+                    Mage::getStoreConfig(self::XML_PATH_LINK_TRACKING_IGNORE));
+    }
+    
+    /**
+     * Get link css classes to be treated as outlinks
+     *
+     * @return array 
+     */
+    public function getLinkTrackingOutlinkClasses()
+    {
+        return $this->_cssClassStringToArray(
+                    Mage::getStoreConfig(self::XML_PATH_LINK_TRACKING_OUTLINK));
+    }
+    
+    /**
+     * Get link css classes to be treated as downloads
+     *
+     * @return array 
+     */
+    public function getLinkTrackingDownloadClasses()
+    {
+        return $this->_cssClassStringToArray(
+                    Mage::getStoreConfig(self::XML_PATH_LINK_TRACKING_DOWNLOAD));
+    }
+    
+    /**
+     *
+     * @param  string $string
+     * @return array 
+     */
+    protected function _cssClassStringToArray($string)
+    {
+        return preg_split('/\s+/', $string, null, PREG_SPLIT_NO_EMPTY);
     }
 }

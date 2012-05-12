@@ -87,6 +87,13 @@
                 <enabled>0</enabled>
                 <site_id>1</site_id>
             </general>
+            <link_tracking>
+                <enabled>1</enabled>
+                <timer>500</timer>
+                <ignore_classes>piwik_ignore</ignore_classes>
+                <outlink_classes>piwik_link</outlink_classes>
+                <download_classes>piwik_download</download_classes>
+            </link_tracking>
         </piwik>
     </default>
 </config>

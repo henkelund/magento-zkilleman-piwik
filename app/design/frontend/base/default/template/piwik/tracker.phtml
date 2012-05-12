@@ -68,8 +68,14 @@
             <?php echo $order->getDiscount(); ?>
         ]);
     <?php endforeach; ?>
-    _paq.push(['trackPageView']);
+    <?php if ($this->trackLinks()): ?>
     _paq.push(['enableLinkTracking']);
+    _paq.push(['setLinkTrackingTimer', <?php echo $this->getLinkDelay(); ?>]);
+    _paq.push(['setIgnoreClasses', <?php echo $this->getLinkIgnoreJson(); ?>]);
+    _paq.push(['setLinkClasses', <?php echo $this->getLinkOutlinkJson(); ?>]);
+    _paq.push(['setDownloadClasses', <?php echo $this->getLinkDownloadJson(); ?>]);
+    <?php endif; ?>
+    _paq.push(['trackPageView']);
 //]]>
 </script>
 <noscript>

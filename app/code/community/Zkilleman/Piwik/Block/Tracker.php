@@ -81,6 +81,54 @@ class Zkilleman_Piwik_Block_Tracker extends Mage_Core_Block_Template
     }
     
     /**
+     *
+     * @return bool 
+     */
+    public function trackLinks()
+    {
+        return $this->_config->isLinkTrackingEnabled();
+    }
+    
+    /**
+     *
+     * @return int 
+     */
+    public function getLinkDelay()
+    {
+        return $this->_config->getLinkTrackingTimer();
+    }
+    
+    /**
+     *
+     * @return string 
+     */
+    public function getLinkIgnoreJson()
+    {
+        return Mage::helper('core')->jsonEncode(
+                        $this->_config->getLinkTrackingIgnoreClasses());
+    }
+    
+    /**
+     *
+     * @return string 
+     */
+    public function getLinkOutlinkJson()
+    {
+        return Mage::helper('core')->jsonEncode(
+                        $this->_config->getLinkTrackingOutlinkClasses());
+    }
+    
+    /**
+     *
+     * @return string 
+     */
+    public function getLinkDownloadJson()
+    {
+        return Mage::helper('core')->jsonEncode(
+                        $this->_config->getLinkTrackingDownloadClasses());
+    }
+    
+    /**
      * A collection of data for transaction tracking
      *
      * @see    http://piwik.org/docs/ecommerce-analytics/
