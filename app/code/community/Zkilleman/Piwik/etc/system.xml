@@ -84,6 +84,19 @@
                                 administration panel
                             ]]></comment>
                         </site_id>
+                        <auth_token translate="label comment">
+                            <label>API Auth Token</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[
+                                A 32 char hash token found on the API page in your
+                                Piwik administration panel. This is needed for the
+                                dashboard, not for tracking
+                            ]]></comment>
+                        </auth_token>
                     </fields>
                 </general>
                 <link_tracking translate="label">

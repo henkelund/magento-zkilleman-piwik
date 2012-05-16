@@ -29,6 +29,22 @@
  */
 -->
 <config>
+    <menu>
+        <dashboard>
+            <children>
+                <mage translate="title" module="adminhtml">
+                    <title>Magento Dashboard</title>
+                    <sort_order>10</sort_order>
+                    <action>adminhtml/dashboard</action>
+                </mage>
+                <piwik translate="title" module="piwik">
+                    <title>Piwik Dashboard</title>
+                    <action>piwik/adminhtml_dashboard</action>
+                    <sort_order>20</sort_order>
+                </piwik>
+            </children>
+        </dashboard>
+    </menu>
     <acl>
         <resources>
             <admin>

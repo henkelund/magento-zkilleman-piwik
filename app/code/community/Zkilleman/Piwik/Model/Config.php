@@ -33,6 +33,7 @@ class Zkilleman_Piwik_Model_Config
     const XML_PATH_TRACKING_ENABLED = 'piwik/general/enabled';
     const XML_PATH_PIWIK_BASE_URL   = 'piwik/general/base_url';
     const XML_PATH_PIWIK_SITE_ID    = 'piwik/general/site_id';
+    const XML_PATH_PIWIK_API_TOKEN  = 'piwik/general/auth_token';
     
     // Link tracking
     const XML_PATH_LINK_TRACKING_ENABLED  = 'piwik/link_tracking/enabled';
@@ -64,7 +65,7 @@ class Zkilleman_Piwik_Model_Config
     /**
      * Get Piwik Site ID from config
      *
-     * @return string 
+     * @return int 
      */
     public function getPiwikSiteId()
     {
@@ -84,7 +85,7 @@ class Zkilleman_Piwik_Model_Config
     /**
      * Get link tracking delay
      *
-     * @return string 
+     * @return int 
      */
     public function getLinkTrackingTimer()
     {
@@ -132,5 +133,15 @@ class Zkilleman_Piwik_Model_Config
     protected function _cssClassStringToArray($string)
     {
         return preg_split('/\s+/', $string, null, PREG_SPLIT_NO_EMPTY);
+    }
+    
+    /**
+     * Get Piwik 'token_auth'
+     *
+     * @return string 
+     */
+    public function getApiToken()
+    {
+        return Mage::getStoreConfig(self::XML_PATH_PIWIK_API_TOKEN);
     }
 }

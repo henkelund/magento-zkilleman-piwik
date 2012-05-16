@@ -1,0 +1,101 @@
+<?php
+/**
+ * Zkilleman_Piwik
+ *
+ * Copyright (C) 2012 Henrik Hedelund (henke.hedelund@gmail.com)
+ *
+ * This file is part of Zkilleman_Piwik.
+ *
+ * Zkilleman_Piwik is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Zkilleman_Piwik is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Zkilleman_Piwik. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category Zkilleman
+ * @package Zkilleman_Piwik
+ * @author Henrik Hedelund <henke.hedelund@gmail.com>
+ * @copyright 2012 Henrik Hedelund (henke.hedelund@gmail.com)
+ * @license http://www.gnu.org/licenses/lgpl.html GNU LGPL
+ * @link https://github.com/henkelund/magento-zkilleman-piwik
+ */
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tbody>
+            <tr>
+                <td>
+                    <h3 class="head-piwik-dashboard">
+                        <?php echo $this->__('Piwik Dashboard'); ?>
+                    </h3>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="piwik-dashboard">
+    <div id="piwik-root"></div>
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4><?php echo $this->__('Visits Timeline'); ?></h4>
+        </div>
+        <div class="fieldset">
+            <p class="switcher a-right">
+                <select id="timespan-filter">
+                    <?php foreach ($this->getTimespanOptions() as $val => $label): ?>
+                    <option value="<?php echo $val; ?>">
+                        <?php echo $label; ?>
+                    </option>
+                    <?php endforeach; ?>
+                </select>
+            </p>
+            <div id="visitTimeline" class="piwik-timeline">
+                <?php ob_start(); ?>
+                <div class="piwik-visit #{classes}"></div>
+                <?php $_timelineVisitTemplate = ob_get_clean(); ?>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    //<![CDATA[
+        (function() {
+            
+            var timeline;
+            
+            var liveApi = new PiwikApiLive(
+                                new PiwikApiBase(
+                                        '<?php echo $this->getBaseUrl(); ?>',
+                                        <?php echo $this->getSiteId(); ?>,
+                                        '<?php echo $this->getAuthToken(); ?>'));
+
+            function initTimeline()
+            {
+                if (typeof timeline == 'object' &&
+                        timeline instanceof PiwikVisitTimeline) {
+                    timeline.stop();
+                }
+                
+                $('visitTimeline').update('');
+
+                timeline = new PiwikVisitTimeline(
+                        liveApi,
+                        parseInt($('timespan-filter').getValue()),
+                        'visitTimeline',
+                        '<?php echo preg_replace('/\s+/', ' ', trim($_timelineVisitTemplate)); ?>'
+                );
+            }
+
+            $('timespan-filter').observe('change', initTimeline);
+            initTimeline();
+
+        })();
+    //]]>
+    </script>
+</div>

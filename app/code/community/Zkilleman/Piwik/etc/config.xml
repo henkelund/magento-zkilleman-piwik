@@ -63,6 +63,28 @@
         </events>
     </frontend>
     
+    <admin>
+        <routers>
+            <piwik>
+                <use>admin</use>
+                <args>
+                    <module>Zkilleman_Piwik</module>
+                    <frontName>piwik</frontName>
+                </args>
+            </piwik>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <piwik>
+                    <file>piwik.xml</file>
+                </piwik>
+            </updates>
+        </layout>
+    </adminhtml>
+    
     <global>
         <blocks>
             <piwik>
@@ -86,6 +108,7 @@
             <general>
                 <enabled>0</enabled>
                 <site_id>1</site_id>
+                <auth_token></auth_token>
             </general>
             <link_tracking>
                 <enabled>1</enabled>
