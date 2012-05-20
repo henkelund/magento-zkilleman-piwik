@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Zkilleman_Piwik
+ *
+ * Copyright (C) 2012 Henrik Hedelund (henke.hedelund@gmail.com)
+ *
+ * This file is part of Zkilleman_Piwik.
+ *
+ * Zkilleman_Piwik is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Zkilleman_Piwik is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Zkilleman_Piwik. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category Zkilleman
+ * @package Zkilleman_Piwik
+ * @author Henrik Hedelund <henke.hedelund@gmail.com>
+ * @copyright 2012 Henrik Hedelund (henke.hedelund@gmail.com)
+ * @license http://www.gnu.org/licenses/lgpl.html GNU LGPL
+ * @link https://github.com/henkelund/magento-zkilleman-piwik
+ */
+-->
+<piwik>
+    <segment>
+        <browserName>
+            <label>Browser</label>
+            <group>Dimensions - Visit</group>
+            <type>select</type>
+            <values>
+                <ab>
+                    <value>AB</value>
+                    <label>ABrowse</label>
+                </ab>
+                <am>
+                    <value>AM</value>
+                    <label>Amaya</label>
+                </am>
+                <av>
+                    <value>AV</value>
+                    <label>AmigaVoyager</label>
+                </av>
+                <aw>
+                    <value>AW</value>
+                    <label>Amiga AWeb</label>
+                </aw>
+                <ar>
+                    <value>AR</value>
+                    <label>Arora</label>
+                </ar>
+                <be>
+                    <value>BE</value>
+                    <label>Beonex</label>
+                </be>
+                <bb>
+                    <value>BB</value>
+                    <label>BlackBerry</label>
+                </bb>
+                <bp>
+                    <value>BP</value>
+                    <label>PlayBook</label>
+                </bp>
+                <bx>
+                    <value>BX</value>
+                    <label>BrowseX</label>
+                </bx>
+                <ca>
+                    <value>CA</value>
+                    <label>Camino</label>
+                </ca>
+                <cs>
+                    <value>CS</value>
+                    <label>Cheshire</label>
+                </cs>
+                <ch>
+                    <value>CH</value>
+                    <label>Chrome</label>
+                </ch>
+                <co>
+                    <value>CO</value>
+                    <label>CometBird</label>
+                </co>
+                <di>
+                    <value>DI</value>
+                    <label>Dillo</label>
+                </di>
+                <el>
+                    <value>EL</value>
+                    <label>ELinks</label>
+                </el>
+                <ep>
+                    <value>EP</value>
+                    <label>Epiphany</label>
+                </ep>
+                <fe>
+                    <value>FE</value>
+                    <label>Fennec</label>
+                </fe>
+                <df>
+                    <value>DF</value>
+                    <label>Dolfin</label>
+                </df>
+                <px>
+                    <value>PX</value>
+                    <label>Phoenix</label>
+                </px>
+                <fb>
+                    <value>FB</value>
+                    <label>Firebird</label>
+                </fb>
+                <ff>
+                    <value>FF</value>
+                    <label>Firefox</label>
+                </ff>
+                <fl>
+                    <value>FL</value>
+                    <label>Flock</label>
+                </fl>
+                <fd>
+                    <value>FD</value>
+                    <label>Fluid</label>
+                </fd>
+                <ga>
+                    <value>GA</value>
+                    <label>Galeon</label>
+                </ga>
+                <ge>
+                    <value>GE</value>
+                    <label>Google Earth</label>
+                </ge>
+                <ha>
+                    <value>HA</value>
+                    <label>Hana</label>
+                </ha>
+                <hj>
+                    <value>HJ</value>
+                    <label>HotJava</label>
+                </hj>
+                <ib>
+                    <value>IB</value>
+                    <label>IBrowse</label>
+                </ib>
+                <ic>
+                    <value>IC</value>
+                    <label>iCab</label>
+                </ic>
+                <ie>
+                    <value>IE</value>
+                    <label>Internet Explorer</label>
+                </ie>
+                <ir>
+                    <value>IR</value>
+                    <label>Iron</label>
+                </ir>
+                <kp>
+                    <value>KP</value>
+                    <label>Kapiko</label>
+                </kp>
+                <kz>
+                    <value>KZ</value>
+                    <label>Kazehakase</label>
+                </kz>
+                <km>
+                    <value>KM</value>
+                    <label>K-Meleon</label>
+                </km>
+                <ko>
+                    <value>KO</value>
+                    <label>Konqueror</label>
+                </ko>
+                <li>
+                    <value>LI</value>
+                    <label>Links</label>
+                </li>
+                <lx>
+                    <value>LX</value>
+                    <label>Lynx</label>
+                </lx>
+                <mi>
+                    <value>MI</value>
+                    <label>Midori</label>
+                </mi>
+                <mo>
+                    <value>MO</value>
+                    <label>Mozilla</label>
+                </mo>
+                <sm>
+                    <value>SM</value>
+                    <label>SeaMonkey</label>
+                </sm>
+                <mc>
+                    <value>MC</value>
+                    <label>NCSA Mosaic</label>
+                </mc>
+                <ns>
+                    <value>NS</value>
+                    <label>Netscape</label>
+                </ns>
+                <ow>
+                    <value>OW</value>
+                    <label>OmniWeb</label>
+                </ow>
+                <op>
+                    <value>OP</value>
+                    <label>Opera</label>
+                </op>
+                <sf>
+                    <value>SF</value>
+                    <label>Safari</label>
+                </sf>
+                <ti>
+                    <value>TI</value>
+                    <label>Titanium</label>
+                </ti>
+                <wo>
+                    <value>WO</value>
+                    <label>Palm webOS</label>
+                </wo>
+                <wp>
+                    <value>WP</value>
+                    <label>WebPro</label>
+                </wp>
+                <unk>
+                    <value>UNK</value>
+                    <label>Unknown</label>
+                </unk>
+            </values>
+        </browserName>
+    </segment>
+</piwik>

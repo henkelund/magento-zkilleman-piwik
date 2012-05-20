@@ -74,3 +74,28 @@
     padding: 5px;
     box-shadow: 0 0 2px #888888;
 }
+#segment-filter {
+    margin-top: 5px;
+}
+.segment-row {
+    min-height: 19px;
+}
+.segment-row a.remove {
+    display: none;
+}
+.segment-row.hover a.remove,
+.segment-row:hover a.remove {
+    display: inline;
+}
+.segment-row .param * {
+    margin-left: 3px;
+}
+.segment-row .param a,
+.segment-row.aggregator a {
+    color: black;
+    text-decoration: none;
+}
+.segment-row .param a:hover,
+.segment-row.aggregator a:hover {
+    text-decoration: underline;
+}

@@ -42,6 +42,15 @@ class Zkilleman_Piwik_Model_Config
     const XML_PATH_LINK_TRACKING_OUTLINK  = 'piwik/link_tracking/outlink_classes';
     const XML_PATH_LINK_TRACKING_DOWNLOAD = 'piwik/link_tracking/download_classes';
     
+    // API
+    const XML_PATH_API_SEGMENT = 'segment';
+    
+    /**
+     *
+     * @var array 
+     */
+    protected $_segmentOptions = null;
+    
     /**
      * Whether tracking is enabled
      *
@@ -143,5 +152,92 @@ class Zkilleman_Piwik_Model_Config
     public function getApiToken()
     {
         return Mage::getStoreConfig(self::XML_PATH_PIWIK_API_TOKEN);
+    }
+    
+    /**
+     *
+     * @param  string $type
+     * @return array 
+     */
+    protected function _getDefaultSegmentOperators($type)
+    {
+        $operators = null;
+        $helper    = Mage::helper('piwik');
+        
+        switch ($type) {
+            case 'select':
+                $operators = array(
+                    '==' => $helper->__('is'),
+                    '!=' => $helper->__('is not')
+                );
+                break;
+            default:
+                $operators = array(
+                    '==' => $helper->__('equals'),
+                    '!=' => $helper->__('does not equal'),
+                    '<=' => $helper->__('is less than or equal to'),
+                    '<'  => $helper->__('is less than'),
+                    '>=' => $helper->__('is greater than or equal to'),
+                    '>'  => $helper->__('is greater than'),
+                    '=@' => $helper->__('contains'),
+                    '!@' => $helper->__('does not contain')
+                );
+                break;
+        }
+        return $operators;
+    }
+    
+    /**
+     * Get segmentation options
+     *
+     * @return array 
+     */
+    public function getSegments()
+    {
+        if ($this->_segmentOptions == null) {
+            $config = Mage::getConfig()->loadModulesConfiguration('piwik.xml');
+            $helper = Mage::helper('piwik');
+            $this->_segmentOptions = $config
+                                        ->getNode(self::XML_PATH_API_SEGMENT)
+                                        ->asArray();
+            
+            foreach ($this->_segmentOptions as $code => &$info) {
+                $info['code']  = $code;
+                $info['label'] = isset($info['label']) ? 
+                                            $helper->__($info['label']) :
+                                            $helper->__($info['code'] . '_label');
+                $info['group'] = isset($info['group']) ? 
+                                            $helper->__($info['group']) :
+                                            $helper->__('General');
+                $info['type'] = (isset($info['type']) &&
+                                    $info['type'] == 'select') ?
+                                                        'select' : 'text';
+                if ($info['type'] == 'select' &&
+                        (!isset($info['values']) ||
+                         !is_array($info['values']))) {
+                    $info['values'] = array();
+                }
+                
+                if ($info['type'] == 'select') {
+                    $values = array();
+                    foreach ($info['values'] as $value) {
+                        if (is_array($value) && isset($value['value'])) {
+                            $values[$value['value']] = $helper->__(
+                                    isset($value['label']) ?
+                                        $value['label'] :
+                                        $value['value'] . '_label');
+                        }
+                    }
+                    $info['values'] = $values;
+                }
+                
+                if (!isset($value['operators']) ||
+                        !is_array($value['operators'])) {
+                    $info['operators'] =
+                        $this->_getDefaultSegmentOperators($info['type']);
+                }
+            }
+        }
+        return $this->_segmentOptions;
     }
 }

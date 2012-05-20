@@ -47,15 +47,18 @@
             <h4><?php echo $this->__('Visits Timeline'); ?></h4>
         </div>
         <div class="fieldset">
-            <p class="switcher a-right">
-                <select id="timespan-filter">
-                    <?php foreach ($this->getTimespanOptions() as $val => $label): ?>
-                    <option value="<?php echo $val; ?>">
-                        <?php echo $label; ?>
-                    </option>
-                    <?php endforeach; ?>
-                </select>
-            </p>
+            <div class="switcher a-right">
+                <div>
+                    <select id="timespan-filter">
+                        <?php foreach ($this->getTimespanOptions() as $val => $label): ?>
+                        <option value="<?php echo $val; ?>">
+                            <?php echo $label; ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div id="segment-filter"></div>
+            </div>
             <div id="visitTimeline" class="piwik-timeline">
                 <?php ob_start(); ?>
                 <div class="piwik-visit #{classes}"></div>
@@ -74,7 +77,17 @@
                                         '<?php echo $this->getBaseUrl(); ?>',
                                         <?php echo $this->getSiteId(); ?>,
                                         '<?php echo $this->getAuthToken(); ?>'));
-
+                                        
+            var segmentFilter = new PiwikSegmentFilter(
+                                        'segment-filter',
+                                        <?php echo $this->getSegmentsJson(); ?>,
+                                        {
+                                            addText    : '<?php echo $this->__('Add filter'); ?>',
+                                            orText     : '<?php echo $this->__('or'); ?>',
+                                            andText    : '<?php echo $this->__('and'); ?>',
+                                            removeText : '<?php echo $this->__('Remove'); ?>'
+                                        });
+            
             function initTimeline()
             {
                 if (typeof timeline == 'object' &&
@@ -88,11 +101,13 @@
                         liveApi,
                         parseInt($('timespan-filter').getValue()),
                         'visitTimeline',
-                        '<?php echo preg_replace('/\s+/', ' ', trim($_timelineVisitTemplate)); ?>'
+                        '<?php echo preg_replace('/\s+/', ' ', trim($_timelineVisitTemplate)); ?>',
+                        segmentFilter.getSegmentString()
                 );
             }
 
             $('timespan-filter').observe('change', initTimeline);
+            segmentFilter.setOption('onchange', initTimeline);
             initTimeline();
 
         })();

@@ -93,4 +93,14 @@ class Zkilleman_Piwik_Block_Adminhtml_Dashboard
             '60'    => $helper->__('Last minute')
         );
     }
+    
+    /**
+     *
+     * @return string 
+     */
+    public function getSegmentsJson()
+    {
+        $segments = $this->_config->getSegments();
+        return Mage::helper('core')->jsonEncode($segments);
+    }
 }
